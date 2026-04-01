@@ -128,22 +128,27 @@ process.on('SIGINT', async () => {
   process.exit(0);
 });
 
-app.listen(PORT, () => {
-  console.log(`\nAPI Server started!`);
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`\nAvailable Endpoints:`);
-  console.log(`    API Info:          http://localhost:${PORT}/`);
-  console.log(`    Health Check:      http://localhost:${PORT}/health`);
-  console.log(`    Swagger Docs:      http://localhost:${PORT}/api-docs`);
-  console.log(`    Login Demo:        POST http://localhost:${PORT}/api/auth/login`);
-  
-  console.log(`\nQuick Links (Ctrl+Click to open):`);
-  console.log(`   • Swagger UI: \x1b]8;;http://localhost:${PORT}/api-docs\x1b\\http://localhost:${PORT}/api-docs\x1b]8;;\x1b\\`);
-  console.log(`   • Health Check: \x1b]8;;http://localhost:${PORT}/health\x1b\\http://localhost:${PORT}/health\x1b]8;;\x1b\\`);
-  console.log(`   • API Info: \x1b]8;;http://localhost:${PORT}/\x1b\\http://localhost:${PORT}/\x1b]8;;\x1b\\`);
-  
-  console.log(`\nDemo Accounts:`);
-  console.log(`   Admin: admin@demo.com / admin123`);
-  console.log(`   Kasir: kasir@demo.com / kasir123`);
-});
+// Export app for Vercel
+module.exports = app;
+
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`\nAPI Server started!`);
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`\nAvailable Endpoints:`);
+    console.log(`    API Info:          http://localhost:${PORT}/`);
+    console.log(`    Health Check:      http://localhost:${PORT}/health`);
+    console.log(`    Swagger Docs:      http://localhost:${PORT}/api-docs`);
+    console.log(`    Login Demo:        POST http://localhost:${PORT}/api/auth/login`);
+    
+    console.log(`\nQuick Links (Ctrl+Click to open):`);
+    console.log(`   • Swagger UI: \x1b]8;;http://localhost:${PORT}/api-docs\x1b\\http://localhost:${PORT}/api-docs\x1b]8;;\x1b\\`);
+    console.log(`   • Health Check: \x1b]8;;http://localhost:${PORT}/health\x1b\\http://localhost:${PORT}/health\x1b]8;;\x1b\\`);
+    console.log(`   • API Info: \x1b]8;;http://localhost:${PORT}/\x1b\\http://localhost:${PORT}/\x1b]8;;\x1b\\`);
+    
+    console.log(`\nDemo Accounts:`);
+    console.log(`   Admin: admin@demo.com / admin123`);
+    console.log(`   Kasir: kasir@demo.com / kasir123`);
+  });
+}
